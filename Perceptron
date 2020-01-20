@@ -1,3 +1,7 @@
+// Jash Parekh
+// 08/17/2019
+// Evergreen Valley High School
+
 import numpy as np
 
 def thresholdFN(w,x):
