@@ -1,0 +1,61 @@
+import numpy as np
+
+def thresholdFN(w,x):
+    sig = np.dot(w,x)
+    if (sig >= 1):
+        return 1
+    else:
+        return 0
+
+def calcError(w,x,d):
+    obsOut = thresholdFN(w,x)
+    error = d - obsOut
+    return error
+
+def updateWeights(w,x,d,l):
+    e = calcError(w,x,d)
+    wNew = np.add(w,l*e*x)
+    #print("x = " + str(x) + " , w = " + str(w) + ", e = " + str(e))
+    return wNew
+
+def train(X,W,desOut,maxEpochs,l):
+    numPatterns = len(X)
+    for epoch in range(maxEpochs):
+        numCorrect = 0
+        for i in range(numPatterns):
+            error = calcError(W,X[i],desOut[i])
+            W = updateWeights(W,X[i],desOut[i],l)
+            if (error == 0):
+                numCorrect+=1
+        acc = 100.0 * numCorrect/numPatterns
+        print("Epoch = " + str(epoch) + ",  Accuracy " + str(acc) + ", Weights = " + str(W))
+        if (acc == 100.0):
+            return 0
+    return -1
+
+X = np.array(
+    [[1,0,0],
+     [1,0,1],
+     [1,1,0],
+     [1,1,1]])
+
+#print(X)
+
+desOut = np.array(
+    [0,0,0,1])
+
+#print(desOUT)
+
+W = np.random.rand(3)
+
+#print(W)
+
+learningRate = 0.1
+
+maxEpochs = 20
+
+res = train(X,W,desOut,maxEpochs,learningRate)
+if (res == 0):
+    print("Network converged.")
+else:
+    print("Network did not converge.")
