@@ -1,9 +1,10 @@
-// Jash Parekh
-// 08/17/2019
-// Evergreen Valley High School
+# Jash Parekh
+# 08/17/2019
+# Evergreen Valley High School
 
 import numpy as np
 
+# Threshold function: sigma w.x >= 1
 def thresholdFN(w,x):
     sig = np.dot(w,x)
     if (sig >= 1):
@@ -11,17 +12,20 @@ def thresholdFN(w,x):
     else:
         return 0
 
+# Calculate error as desired output - observed output
 def calcError(w,x,d):
     obsOut = thresholdFN(w,x)
     error = d - obsOut
     return error
 
+# Perceptron rule to update weights
 def updateWeights(w,x,d,l):
     e = calcError(w,x,d)
     wNew = np.add(w,l*e*x)
     #print("x = " + str(x) + " , w = " + str(w) + ", e = " + str(e))
     return wNew
 
+# Perceptron training function 
 def train(X,W,desOut,maxEpochs,l):
     numPatterns = len(X)
     for epoch in range(maxEpochs):
@@ -37,6 +41,7 @@ def train(X,W,desOut,maxEpochs,l):
             return 0
     return -1
 
+# Create the training dataset
 X = np.array(
     [[1,0,0],
      [1,0,1],
@@ -45,19 +50,22 @@ X = np.array(
 
 #print(X)
 
+# Desired output for the AND function
 desOut = np.array(
     [0,0,0,1])
 
-#print(desOUT)
+# print(desOUT)
 
+# Random initialization of the weights
 W = np.random.rand(3)
 
-#print(W)
+# print(W)
 
+# Set learning rate and max epochs
 learningRate = 0.1
-
 maxEpochs = 20
 
+# Train the perceptron and print results
 res = train(X,W,desOut,maxEpochs,learningRate)
 if (res == 0):
     print("Network converged.")
