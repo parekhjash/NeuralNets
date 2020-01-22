@@ -2,6 +2,7 @@
 # 08/17/2019
 # Evergreen Valley High School
 
+# Program for training a perceptron (a single neuron neural network)
 import numpy as np
 
 # Threshold function: sigma w.x >= 1
